@@ -34,6 +34,7 @@ DEBUG = os.environ.get("DEBUG") == "True"
 ALLOWED_HOSTS = ['leads-5w34.onrender.com', 'localhost', '127.0.0.1']
 
 
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
