@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Create Sub-user</h2>
+    <form method="post">
+        
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% elif message.tags == "success" %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {% endif %}
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+            {% endfor %}
+        {% endif %}
+        
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto">
+                <label class="form-label">Username</label>
+                {{ user_form.username }}
+                {% for error in user_form.username.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto">
+                <label class="form-label">Email</label>
+                {{ user_form.email }}
+                {% for error in user_form.email.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto">
+                <label class="form-label">Password</label>
+                {{ user_form.password1 }}
+                {% for error in user_form.password1.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="row mb-3">
+            <div class="col-md-6 mx-auto">
+                <label class="form-label">Confirm Password</label>
+                {{ user_form.password2 }}
+                {% for error in user_form.password2.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-text text-info text-center mb-3">
+            Example: <code>MySecurePass123!</code> — use a mix of letters, numbers, and symbols.
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-50">Create</button>
+        </div>
+    </form><br><br><br>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in subusers %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.is_active %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-danger">Disabled</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'toggle_subuser_status' user.id %}" 
+                    class="btn btn-sm {% if user.is_active %}btn btn-primary{% else %}btn btn-primary{% endif %}">
+                     {% if user.is_active %}Disable{% else %}Activate{% endif %}
+                 </a>
+                 
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No subusers found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+</div>
+{% endblock %}

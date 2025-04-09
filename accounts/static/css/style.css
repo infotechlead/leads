@@ -1,0 +1,115 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f3f3f3;
+}
+
+.login-container {
+    display: flex;
+    background: white;
+    width: 900px;
+    height: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.image-box {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.image-box img {
+    width: 90%;
+    height: auto;
+}
+
+.login-box {
+    flex: 1;
+    padding: 40px;
+    text-align: center;
+    background: rgba(173, 216, 230, 0.3);
+    border-radius: 0 12px 12px 0;
+}
+
+.login-header {
+    font-size: 30px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    text-align: left;
+    margin: 15px 0;
+}
+
+/* Unified input styles */
+.input-group input,
+.password-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Password-specific padding for eye icon */
+.password-group {
+    position: relative;
+}
+
+.password-group input {
+    padding-right: 40px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #aaa;
+}
+
+.eye-icon:hover {
+    color: #333;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007BFF;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #0056b3;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}

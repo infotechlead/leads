@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Neoinfotech{% endblock %}
+
+{% block content %}
+<div class="welcome-section">
+    <h1>Welcome, {{ user.username }}!</h1>
+</div>
+
+<div class="dashboard-stats">
+    <div class="stats-row">
+        <div class="stats-box">
+            <h3>Today Lead</h3>
+            <p>0</p>
+        </div>
+        <div class="stats-box">
+            <h3>Week Lead</h3>
+            <p>0</p>
+        </div>
+        <div class="stats-box">
+            <h3>Month Lead</h3>
+            <p>0</p>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stats-box">
+            <h3>Pending Lead</h3>
+            <p>0</p>
+        </div>
+        <div class="stats-box">
+            <h3>Done Lead</h3>
+            <p>0</p>
+        </div>
+        <div class="stats-box">
+            <h3>Confirm Lead</h3>
+            <p>0</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

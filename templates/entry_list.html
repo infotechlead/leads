@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h2>Your Entries</h2>
+    <div class="table-responsive"  >
+
+        <form method="get" class="row g-3 mb-4 align-items-end">
+            <!-- User Filter -->
+            <div class="col-md-2">
+                <label for="filter_user" class="form-label">Filter by Username:</label>
+                <select name="filter_user" id="filter_user" class="form-select">
+                    <option value="">All</option>
+                    <option value="{{ request.user.id }}" {% if filter_user_id == request.user.id|stringformat:"s" %}selected{% endif %}>
+                        You ({{ request.user.username }})
+                    </option>
+                    {% for subuser in subusers %}
+                        <option value="{{ subuser.id }}" {% if filter_user_id == subuser.id|stringformat:"s" %}selected{% endif %}>
+                            {{ subuser.username }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        
+            <!-- Start Date -->
+            <div class="col-md-2">
+                <label for="start_date" class="form-label">Start Date:</label>
+                <input type="date" name="start_date" id="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+        
+            <!-- End Date -->
+            <div class="col-md-2">
+                <label for="end_date" class="form-label">End Date:</label>
+                <input type="date" name="end_date" id="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+        
+            <!-- Field Selector -->
+            <div class="col-md-2">
+                <label for="field" class="form-label">Search Field:</label>
+                <select name="field" id="field" class="form-select">
+                    <option value="">-- Select Field --</option>
+                    <!-- <option value="entry_no" {% if field == "entry_no" %}selected{% endif %}>Entry No</option> -->
+                    <option value="client_name" {% if field == "client_name" %}selected{% endif %}>Client Name</option>
+                    <option value="executive" {% if field == "executive" %}selected{% endif %}>Executive</option>
+                    <option value="party_name" {% if field == "party_name" %}selected{% endif %}>Party Name</option>
+                    <option value="location" {% if field == "location" %}selected{% endif %}>Location</option>
+                    <option value="mobile_no" {% if field == "mobile_no" %}selected{% endif %}>Mobile No</option>
+                    <option value="model" {% if field == "model" %}selected{% endif %}>Model</option>
+                    <option value="sr_no" {% if field == "sr_no" %}selected{% endif %}>Serial No</option>
+                    <option value="type" {% if field == "type" %}selected{% endif %}>Type</option>
+                    <option value="requirement" {% if field == "requirement" %}selected{% endif %}>Requirement</option>
+                    <option value="quote_amt" {% if field == "quote_amt" %}selected{% endif %}>Quote Amount</option>
+                    <option value="cost" {% if field == "cost" %}selected{% endif %}>Cost</option>
+                    <option value="status" {% if field == "status" %}selected{% endif %}>Status</option>
+                </select>
+            </div>
+        
+            <!-- Search Value -->
+            <div class="col-md-2">
+                <label for="value" class="form-label">Value:</label>
+                <input type="text" name="value" id="value" class="form-control" placeholder="Search value" value="{{ value|default_if_none:'' }}">
+            </div>
+        
+            <!-- Submit & Reset -->
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-primary mt-4">Search</button>
+            </div>
+        
+        
+        </form>
+        
+        
+        
+        <table class="table-responsive table table-striped table-bordered text-nowrap">
+            <thead class="table-dark">
+                <tr>
+                    <!-- <th class="col-1">Entry No</th> -->
+                    <th class="col-2">Date</th>
+                    <th class="col-2">Created By</th>
+                    <th class="col-2">Client Name</th>
+                    <th class="col-2">Executive</th>
+                    <th class="col-2">Party name</th>
+                    <th class="col-2">Location</th>
+                    <th class="col-2">Mobile</th>
+                    <th class="col-2">Model</th>
+                    <th class="col-2">Sr no</th>
+                    <th class="col-2">Type</th>
+                    <th class="col-2">Requirement</th>
+                    <th class="col-2">Quote amt</th>
+                    <th class="col-2">Cost</th>
+                    <th class="col-2">Status</th>
+                    <th class="col-2">Last Edited By</th>
+                    <th class="col-2">Last Edited At</th>
+                    <th class="col-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <!-- <td>{{ entry.entry_no }}</td> -->
+                    
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.user.username }}</td>
+                    <td>{{ entry.client_name }}</td>
+                    <td>{{ entry.executive }}</td>
+                    <td>{{ entry.party_name }}</td>
+                    <td>{{ entry.location }}</td>
+                    <td>{{ entry.mobile_no }}</td>
+                    <td>{{ entry.model }}</td>
+                    <td>{{ entry.sr_no }}</td>
+                    <td>{{ entry.type }}</td>
+                    <td>{{ entry.requirement }}</td>
+                    <td>{{ entry.quote_amt }}</td>
+                    <td>{{ entry.cost }}</td>
+                    <td>{{ entry.status }}</td>
+                    <td>
+                        {% if entry.last_edited_by %}
+                            {{ entry.last_edited_by.username }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entry.last_edited_at %}
+                            {{ entry.last_edited_at|date:"Y-m-d H:i" }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_entry' entry.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{% url 'delete_entry' entry.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">No entries found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
