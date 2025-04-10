@@ -245,9 +245,3 @@ def delete_entry(request, pk):
     return redirect("entry_list")
 
 
-# def create_super_user(request):
-#     User = get_user_model()
-#     if not User.objects.filter(username='admin').exists():
-#         User.objects.create_superuser('admin', 'admin@example.com', 'adminpass123')
-#         return HttpResponse("✅ Superuser created.")
-#     return HttpResponse("⚠️ Superuser already exists.")
