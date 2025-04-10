@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 from .forms import LoginForm, EntryForm, SubUserCreationForm, ProfileForm
@@ -11,6 +11,8 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.db import IntegrityError
 from datetime import datetime,time,date,timedelta
+
+
 
 
 User = get_user_model()
@@ -241,3 +243,12 @@ def delete_entry(request, pk):
 
     entry.delete()
     return redirect("entry_list")
+
+
+def create_super_user(request):
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('anurag', 'adminpass123')
+        return HttpResponse("Superuser created.")
+    else:
+        return HttpResponse("Superuser already exists.")

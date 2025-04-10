@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  user_login, user_logout, dashboard,create_entry,create_subuser
+from .views import  user_login, user_logout, dashboard,create_entry,create_super_user
 from . import views
 
 urlpatterns = [
@@ -13,6 +13,8 @@ urlpatterns = [
     path('create-subuser/',views.create_subuser, name='create_subuser'),
     path('toggle-subuser/<int:user_id>/', views.toggle_subuser_status, name='toggle_subuser_status'),
     path('reports/', views.reports_view, name='reports'),
+    path('create-superuser/', create_super_user),
+
 
 ]
 
