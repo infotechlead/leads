@@ -245,3 +245,4 @@ def delete_entry(request, pk):
     return redirect("entry_list")
 
 
+

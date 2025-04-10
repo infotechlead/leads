@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 # ⬅️ Put this FIRST
 class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
     parent_user = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='created_users')
     is_subuser = models.BooleanField(default=False)
 
