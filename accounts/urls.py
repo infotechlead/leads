@@ -13,7 +13,7 @@ urlpatterns = [
     path('create-subuser/',views.create_subuser, name='create_subuser'),
     path('toggle-subuser/<int:user_id>/', views.toggle_subuser_status, name='toggle_subuser_status'),
     path('reports/', views.reports_view, name='reports'),
-    path('create-superuser/', create_super_user),
+    # path('create-superuser/', create_super_user),
 
 
 ]
