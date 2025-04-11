@@ -16,7 +16,9 @@ class CustomUser(AbstractUser):
 # Then define the other models
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
-    parent_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE, related_name='subusers')
+    parent_user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, 
+    blank=True, on_delete=models.CASCADE, related_name='subusers')
+    contact_person = models.CharField(max_length=255, blank=True, null=True)
     organization_name = models.CharField(max_length=255, blank=True, null=True)
     mobile_number = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)

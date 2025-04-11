@@ -42,7 +42,8 @@
 
                 {% csrf_token %}
                 <div class="input-group">
-                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="text" name="username" id="id_username" oninput="this.value = this.value.toLowerCase()" />
+
                 </div>
 
                 <div class="input-group password-group">
