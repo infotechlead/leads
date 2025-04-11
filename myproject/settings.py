@@ -115,9 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'accounts.backends.CaseInsensitiveBackend',  # use your app name
-]
+
 
 
 # Internationalization

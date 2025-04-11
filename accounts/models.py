@@ -9,6 +9,11 @@ class CustomUser(AbstractUser):
     parent_user = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='created_users')
     is_subuser = models.BooleanField(default=False)
 
+    def save(self, *args, **kwargs):
+        if self.username:
+            self.username = self.username.lower()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.username
 
